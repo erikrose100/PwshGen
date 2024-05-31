@@ -1,0 +1,62 @@
+:::requires
+#requires -version 7
+:::
+:::help
+<#
+.SYNOPSIS
+  <>
+
+.DESCRIPTION
+  <>
+
+.PARAMETER	<param>
+  <>
+
+.INPUTS
+  <>
+
+.OUTPUTS
+  <>
+
+.NOTES
+  Version:		1.0
+  Author:		<Name>
+  Creation Date:	<Date>
+  Purpose/Change: Init
+
+.EXAMPLE
+  <>
+#>
+:::cmdletBinding
+[CmdletBinding()]
+:::
+:::scriptParams
+param(
+    [string]$param
+)
+:::
+:::subFunction
+function FunctionName {
+    param(
+        [string]$FunctionParam
+    )
+    begin {
+    }
+
+    process {
+    }
+
+    end {
+    }
+}
+:::
+:::mainFunction
+function Main {
+    FunctionName -FunctionParam $param
+}
+:::
+:::run
+
+Main
+exit 0
+:::
