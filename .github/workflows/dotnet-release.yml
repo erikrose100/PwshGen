@@ -7,6 +7,7 @@ on:
 
 env:
   dotnet-version: '8.0.x'
+  app-name: pwshgen
 
 jobs:
   win-x64-release:
@@ -21,7 +22,7 @@ jobs:
           run: dotnet restore
         - run: mkdir \app
         - name: Compile exectuable
-          run: dotnet publish -r win-x64 -c Release -o \app\ CloseAsteroids.csproj
+          run: dotnet publish -r win-x64 -c Release -o \app\ ${{ env.app-name }}.csproj
         - name: Zip executable
           shell: Powershell
           run: Compress-Archive -Path D:\app\ -Destination win-x64.zip
@@ -43,7 +44,7 @@ jobs:
           run: dotnet restore
         - run: sudo mkdir -p ~/app
         - name: Compile exectuable
-          run: sudo dotnet publish -r osx-x64 -c Release -o ~/app/ CloseAsteroids.csproj
+          run: sudo dotnet publish -r osx-x64 -c Release -o ~/app/ ${{ env.app-name }}.csproj
         - name: Zip executable
           shell: Powershell
           run: Compress-Archive -Path ~/app/* -Destination macos-x64.zip
@@ -71,7 +72,7 @@ jobs:
             clang zlib1g-dev
         - run: sudo mkdir ~/app
         - name: Compile exectuable
-          run: sudo dotnet publish -r linux-x64 -c Release -o ~/app/ CloseAsteroids.csproj
+          run: sudo dotnet publish -r linux-x64 -c Release -o ~/app/ ${{ env.app-name }}.csproj
         - name: Zip executable
           run: zip -r linux-x64.zip ~/app/
         - name: Download All Artifacts
