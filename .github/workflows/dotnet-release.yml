@@ -99,7 +99,7 @@ jobs:
             sudo sed -i -e 's/deb mirror/deb [arch=amd64] mirror/g' /etc/apt/sources.list
             sudo apt update
             sudo apt install -y clang llvm binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu zlib1g-dev:arm64
-        - run: sudo mkdir ~/app ~/arm64 ~/arm ~/musl
+        - run: sudo mkdir ~/app ~/arm64
         - name: Compile x64 exectuable
           run: sudo dotnet publish -r linux-x64 -c Release -o ~/app/ ${{ env.project-name }}.csproj
         - name: Compile arm64 exectuable
