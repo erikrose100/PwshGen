@@ -1,11 +1,5 @@
 ﻿using System.CommandLine;
 using System.Text;
-using System.ComponentModel;
-using System.Linq;
-using Markdig;
-using Markdig.Syntax;
-using Markdig.Syntax.Inlines;
-using Markdig.Extensions.CustomContainers;
 
 namespace PwshGen;
 class Program
