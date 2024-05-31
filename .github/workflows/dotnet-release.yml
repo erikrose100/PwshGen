@@ -89,7 +89,6 @@ jobs:
           run: dotnet restore
         - name: Install dotnet AOT cross-compliation dependencies
           run: |
-            sudo apt-get update && sudo apt-get install -y --no-install-recommends
             sudo dpkg --add-architecture arm64
             sudo bash -c 'cat > /etc/apt/sources.list.d/arm64.list <<EOF
             deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy main restricted
