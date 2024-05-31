@@ -20,7 +20,8 @@ jobs:
             dotnet-version: ${{ env.dotnet-version }}
         - name: Install project dependencies
           run: dotnet restore
-        - run: mkdir \app \arm
+        - run: mkdir \app
+        - run: mkdir \arm
         - name: Compile x64 exectuable
           run: dotnet publish -r win-x64 -c Release -o \app\ ${{ env.project-name }}.csproj
         - name: Compile arm64 exectuable
@@ -53,7 +54,7 @@ jobs:
             dotnet-version: ${{ env.dotnet-version }}
         - name: Install project dependencies
           run: dotnet restore
-        - run: sudo mkdir -p ~/app ~/arm
+        - run: sudo mkdir ~/app ~/arm
         - name: Compile x64 exectuable
           run: sudo dotnet publish -r osx-x64 -c Release -o ~/app/ ${{ env.project-name }}.csproj
         - name: Compile arm64 exectuable
