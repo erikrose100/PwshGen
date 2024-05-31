@@ -1,11 +1,5 @@
 ﻿using System.CommandLine;
 using System.Text;
-using System.ComponentModel;
-using System.Linq;
-using Markdig;
-using Markdig.Syntax;
-using Markdig.Syntax.Inlines;
-using Markdig.Extensions.CustomContainers;
 
 namespace PwshGen;
 class Program
@@ -14,34 +8,37 @@ class Program
     {
         var fileName = new Option<string?>(
             name: "--file",
-            description: "The file to read and display on the console.",
-            getDefaultValue: () => "pwsh");
+            description: "File name to use for output -- defaults to cwd name and appends a random int if it already exists.",
+            getDefaultValue: () =>  Directory.GetCurrentDirectory().Split(Path.DirectorySeparatorChar).Last());
 
         var paramName = new Option<string?>(
             name: "--param",
-            description: "The file to read and display on the console.",
-            getDefaultValue: () => "param");
+            description: "Name to use for main function parameter",
+            getDefaultValue: () => Environment.GetEnvironmentVariable("PWSHGEN_MAIN_PARAM") ?? "param");
+
+        var creatorName = new Option<string?>(
+            name: "--creator-name",
+            description: "Name of creator to put in the file.",
+            getDefaultValue: () => Environment.GetEnvironmentVariable("PWSHGEN_NAME") ?? "<Name>");
 
         var template = new Option<string?>(
             name: "--template",
-            description: "Specify template to use instead of default.");
+            description: ".psmd template file to read from",
+            getDefaultValue: () => Environment.GetEnvironmentVariable("PWSHGEN_TEMPLATE_FILE") ?? null);
 
         var rootCommand = new RootCommand("Sample app for System.CommandLine")
         {
             fileName,
             paramName,
+            creatorName,
             template
         };
 
-        rootCommand.SetHandler((fileName, paramName, template) =>
+        rootCommand.SetHandler((fileName, paramName, creatorName, template) =>
             {
-                if (template is null && Environment.GetEnvironmentVariable("PWSHGEN_TEMPLATE_FILE") is not null)
-                {
-                    template = Environment.GetEnvironmentVariable("PWSHGEN_TEMPLATE_FILE");
-                }
                 if (template is null)
                 {
-                    var outputTemplate = new Template(paramName!, "\n\n\tbegin {\n\t}\n\n\tprocess {\n\t}\n\n\tend {\n\t}");
+                    var outputTemplate = new Template(paramName!, "\n\n\tbegin {\n\t}\n\n\tprocess {\n\t}\n\n\tend {\n\t}", creatorName!, DateTime.Now);
                     StringBuilder output = new();
                     output
                         .Append(outputTemplate.requires)
@@ -78,7 +75,7 @@ class Program
                     OutputFile(fileName!, output);
                 }
             },
-            fileName, paramName, template);
+            fileName, paramName, creatorName, template);
 
         return await rootCommand.InvokeAsync(args);
     }
