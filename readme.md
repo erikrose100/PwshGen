@@ -26,4 +26,12 @@ Can be set using the `PWSHGEN_CREATOR_NAME` environment variable.
 ### --param
 Name of the output scripts provided parameters.
 
-Can be set using the `PWSHGEN_MAIN_PARAM"` environment variable.
+Can be set using the `PWSHGEN_MAIN_PARAM` environment variable.
+
+## Environment Variables
+| Env | Option |
+| --- | --- |
+| PWSHGEN_TEMPLATE_FILE | `--template` |
+| PWSHGEN_CREATOR_NAME | `--creator-name` |
+| PWSHGEN_MAIN_PARAM | `--param` |
+
