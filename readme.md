@@ -1,4 +1,4 @@
-# pwshgen - Scaffold PowerShell Core scripts from template
+# pwshgen - Scaffold PowerShell Core scripts
 `pwshgen` is a CLI tool that creates a new empty PowerShell Core (pwsh) script from a built-in (or provided) template. Inspired by `dotnet new`. Written in C# and AOT compiled for quick execution.
 
 ## Use
